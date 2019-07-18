@@ -1,0 +1,22 @@
+environment: dev
+runner:
+  runner: dataflow
+  project:
+  jobName: pubsubgenericeventparser
+  zone:
+  network:
+  stagingLocation:
+  tempLocation:
+  numWorkers: 1
+  maxNumWorkers: 1
+  workerMachineType: n1-standard-2
+  diskSizeGb: 100
+  autoscalingAlgorithm: THROUGHPUT_BASED
+options:
+  datasetId:
+  fallbackTableId: fallback_table
+  fullSubscription:
+pipelines:
+  PubsubGenericEventParser:
+    enable: true
+transformNameMapping:

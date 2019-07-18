@@ -1,0 +1,34 @@
+runner:
+  runner: direct
+  project: project
+  jobName: job
+  zone: us-east1-b
+  network: default
+  stagingLocation: gs://soldera/stag
+  tempLocation: gs://soldera/tmp
+  numWorkers: 1
+  maxNumWorkers: 5
+  workerMachineType: n1-standard-2
+  diskSizeGb: 100
+  autoscalingAlgorithm: THROUGHPUT_BASED
+  workerLogLevelOverrides:
+    org.apache.kafka.clients.consumer.internals.Fetcher: WARN
+options:
+  datasetId: dataset
+  fallbackTableId: fallback_table
+pipelines:
+  GenericEventParser:
+    enable: true
+connections:
+  kafka:
+    topic:
+    - genericPipe
+    properties:
+      bootstrap.servers: 1.1.1.1:9093
+      group.id: genericPipe
+      sasl.jaas.config: org.apache.kafka.common.security.scram.ScramLoginModule required username="USER" password="PASS";
+      security.protocol: SASL_PLAINTEXT
+      sasl.mechanism: SCRAM-SHA-256
+      enable.auto.commit: false
+      auto.offset.reset: earliest
+transformNameMapping:

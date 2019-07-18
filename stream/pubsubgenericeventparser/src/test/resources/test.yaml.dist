@@ -1,0 +1,30 @@
+environment: direct
+runner:
+  runner: direct
+  project: project
+  jobName: pubsubgenericeventparser
+  zone: us-east1-b
+  network: default
+  stagingLocation: gs://soldera/stag
+  tempLocation: gs://soldera/tmp
+  numWorkers: 1
+  maxNumWorkers: 5
+  workerMachineType: n1-standard-2
+  diskSizeGb: 100
+  autoscalingAlgorithm: THROUGHPUT_BASED
+  labels:
+    costcenter: bi-development
+    infratype: pipeline
+options:
+  datasetId: arquivei_streaming_parsed_events
+  fallbackTableId: fallback_table
+  fullSubscription: projects/project/subscriptions/soldera
+  backupDatasetId: backup
+  backupTableId: backup
+  gcsBackupPath: gs://bucket/path
+pipelines:
+  PubsubGenericEventParser:
+    enable: true
+  BackupPipeline:
+    enable: true
+transformNameMapping:
