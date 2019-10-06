@@ -15,7 +15,7 @@ class KafkaRead(sc: ScioContext, kafkaConfig: KafkaConfig) {
         .withTopics(kafkaConfig.topics)
         .withKeyDeserializer(classOf[StringDeserializer])
         .withValueDeserializer(classOf[StringDeserializer])
-        .updateConsumerProperties(kafkaConfig.properties)
+        .withConsumerConfigUpdates(kafkaConfig.properties)
         .commitOffsetsInFinalize()
         .withCreateTime(Duration.standardMinutes(1))
         .withoutMetadata()

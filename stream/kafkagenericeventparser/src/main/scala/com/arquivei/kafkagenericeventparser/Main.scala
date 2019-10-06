@@ -16,19 +16,16 @@ object Main {
 
     val kafkaConfig = KafkaConfig("kafka")
 
-    val pipelines = List(
-      new GenericEventParser(sc)
-    ).filterPipelines
-
-    val kafkaRead = new KafkaRead(sc, kafkaConfig)
+    val pipeline = new KafkaGenericEventParser(sc)
 
     mode match {
       case "migrate" =>
-        for (pipeline <- pipelines) pipeline.migrate()
+        pipeline.migrate()
       case "run" | "update" =>
+        val kafkaRead = new KafkaRead(sc, kafkaConfig)
         val read = kafkaRead.read()
-        for (pipeline <- pipelines) pipeline.build(read)
-        sc.close()
+        pipeline.build(read)
+        sc.run()
       case _ =>
         println(s"Unsuported mode $mode")
     }

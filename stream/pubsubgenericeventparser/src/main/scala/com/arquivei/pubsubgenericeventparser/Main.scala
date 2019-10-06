@@ -18,16 +18,14 @@ object Main {
     val pubSubMessages = sc
       .withName("Read From Pubsub").pubsubSubscription[String](fullSubscription)
 
-    val pipelines = List(
-      new PubsubGenericEventParser(sc)
-    ).filterPipelines
+    val pipeline = new PubsubGenericEventParser(sc)
 
     mode match {
       case "migrate" =>
-        for (pipeline <- pipelines) pipeline.migrate()
+        pipeline.migrate()
       case "run" | "update" =>
-        for (pipeline <- pipelines) pipeline.build(pubSubMessages)
-        sc.close()
+        pipeline.build(pubSubMessages)
+        sc.run()
       case _ =>
         println(s"Unsuported mode $mode")
     }
