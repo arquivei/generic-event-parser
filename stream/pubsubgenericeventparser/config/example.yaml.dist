@@ -16,6 +16,8 @@ options:
   datasetId:
   fallbackTableId: fallback_table
   fullSubscription:
+  windowDurationMinutes: 10
+  windowFiringDelayMinutes: 12
 pipelines:
   PubsubGenericEventParser:
     enable: true
