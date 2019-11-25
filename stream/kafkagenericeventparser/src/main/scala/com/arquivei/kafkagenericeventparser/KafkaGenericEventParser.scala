@@ -32,8 +32,6 @@ import scala.util.{Failure, Success, Try}
 
 
 class KafkaGenericEventParser(sc: ScioContext) extends StreamPipeline[SCollection[KV[String, String]]] {
-  val windowDurationMinutes = 10
-  val windowFiringMinutes = 12
   override def migrate(): Unit = {
     SchemaMigrator(
       Options().gcpProject,
@@ -45,12 +43,13 @@ class KafkaGenericEventParser(sc: ScioContext) extends StreamPipeline[SCollectio
   }
 
   override def build(start: SCollection[KV[String, String]]): Unit = {
-
     val projectId = Options().gcpProject
     val datasetId = Options().getOptionString("datasetId")
     val fallbackTableId = Options().getOptionString("fallbackTableId")
-
     val genericEventParserFunctions = GenericEventParserFunctions(projectId, datasetId, fallbackTableId)
+
+    val windowDurationMinutes = Options().getOptionInt("windowDurationMinutes")
+    val windowFiringMinutes = Options().getOptionInt("windowFiringDelayMinutes")
 
     System.setProperty(BigQuerySysProps.CacheEnabled.flag, "false")
 

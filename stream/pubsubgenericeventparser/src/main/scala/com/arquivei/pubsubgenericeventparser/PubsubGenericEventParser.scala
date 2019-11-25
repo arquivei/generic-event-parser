@@ -28,9 +28,6 @@ import scala.util.{Failure, Success, Try}
 
 
 class PubsubGenericEventParser(sc: ScioContext) extends StreamPipeline[SCollection[String]] {
-  val windowDurationMinutes = 1
-  val windowFiringMinutes = 1
-
   override def migrate(): Unit = {
     SchemaMigrator(
       Options().gcpProject,
@@ -42,11 +39,13 @@ class PubsubGenericEventParser(sc: ScioContext) extends StreamPipeline[SCollecti
   }
 
   override def build(pubSubMessages: SCollection[String]): Unit = {
-
     val projectId = Options().gcpProject
     val datasetId = Options().getOptionString("datasetId")
     val fallbackTableId = Options().getOptionString("fallbackTableId")
     val genericEventParserFunctions = GenericEventParserFunctions(projectId, datasetId, fallbackTableId)
+
+    val windowDurationMinutes = Options().getOptionInt("windowDurationMinutes")
+    val windowFiringMinutes = Options().getOptionInt("windowFiringDelayMinutes")
 
     System.setProperty(BigQuerySysProps.CacheEnabled.flag, "false")
 

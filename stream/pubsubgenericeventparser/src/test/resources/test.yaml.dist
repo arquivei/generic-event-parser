@@ -22,9 +22,9 @@ options:
   backupDatasetId: backup
   backupTableId: backup
   gcsBackupPath: gs://bucket/path
+  windowDurationMinutes: 10
+  windowFiringDelayMinutes: 12
 pipelines:
   PubsubGenericEventParser:
-    enable: true
-  BackupPipeline:
     enable: true
 transformNameMapping:

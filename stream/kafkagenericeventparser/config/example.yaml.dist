@@ -16,6 +16,8 @@ runner:
 options:
   datasetId:
   fallbackTableId:
+  windowDurationMinutes: 10
+  windowFiringDelayMinutes: 12
 pipelines:
   GenericEventParser:
     enable: true
