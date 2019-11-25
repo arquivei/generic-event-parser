@@ -31,7 +31,7 @@ import scala.util.matching.Regex
 import scala.util.{Failure, Success, Try}
 
 
-class GenericEventParser(sc: ScioContext) extends StreamPipeline[SCollection[KV[String, String]]] {
+class KafkaGenericEventParser(sc: ScioContext) extends StreamPipeline[SCollection[KV[String, String]]] {
   val windowDurationMinutes = 10
   val windowFiringMinutes = 12
   override def migrate(): Unit = {

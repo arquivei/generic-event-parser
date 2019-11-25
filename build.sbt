@@ -1,9 +1,9 @@
 
 val json4sVersion = "3.6.0-M3"
-val scioVersion = "0.7.4"
-val beamVersion = "2.11.0"
+val scioVersion = "0.8.0-beta1"
+val beamVersion = "2.15.0"
 val slf4jVersion = "1.7.25"
-val kafkaVersion = "2.0.0"
+val kafkaVersion = "2.3.0"
 val scalaMacrosVersion = "2.1.1"
 
 lazy val commonSettings = Defaults.coreDefaultSettings ++ Seq(
@@ -52,7 +52,7 @@ lazy val kafkagenericeventparser = (project in file("./stream/kafkagenericeventp
     commonSettings ++ macroSettings,
     name := "KafkaGenericEventParser",
     packageName in Docker := "arquivei/kafkagenericeventparser",
-    version in Docker := "1907.1",
+    version in Docker := "1910.1",
     libraryDependencies ++= Seq(
       "com.spotify" %% "scio-core" % scioVersion,
       "com.spotify" %% "scio-test" % scioVersion % Test,
@@ -71,7 +71,7 @@ lazy val pubsubgenericeventparser = (project in file("./stream/pubsubgenericeven
     commonSettings ++ macroSettings,
     name := "PubsubGenericEventParser",
     packageName in Docker := "arquivei/pubsubgenericeventparser",
-    version in Docker := "1907.1",
+    version in Docker := "1910.1",
     libraryDependencies ++= Seq(
       "com.spotify" %% "scio-core" % scioVersion,
       "com.spotify" %% "scio-test" % scioVersion % Test,

@@ -28,8 +28,9 @@ import scala.util.{Failure, Success, Try}
 
 
 class PubsubGenericEventParser(sc: ScioContext) extends StreamPipeline[SCollection[String]] {
-  val windowDurationMinutes = 10
-  val windowFiringMinutes = 12
+  val windowDurationMinutes = 1
+  val windowFiringMinutes = 1
+
   override def migrate(): Unit = {
     SchemaMigrator(
       Options().gcpProject,
